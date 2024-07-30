@@ -1,0 +1,21 @@
+{
+	"name": "koders/estimation-module",
+	"description": "Estimatation module consuming the SOGEFI DVF API",
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"Koders\\EstimationModule\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Koders TEAM <dev@koders.mg>"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": "^8.0",
+		"laravel/framework": "^9.0"
+	}
+}
