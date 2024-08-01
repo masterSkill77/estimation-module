@@ -2,6 +2,7 @@
 
 namespace Koders\EstimationModule;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -11,6 +12,11 @@ class EstimationModuleServiceProvider extends PackageServiceProvider
     {
         $package
             ->name("estimation-module")
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasInstallCommand(function (InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->copyAndRegisterServiceProviderInApp();
+            });
     }
 }
