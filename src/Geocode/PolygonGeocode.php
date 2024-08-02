@@ -11,7 +11,15 @@ final class PolygonGeocode
     // Approximation: 1 degree ~ 111 km
     const APPROXIMATION = 111;
 
-    public static function generateCirclePolygon($latitude, $longitude, $radiusKm)
+
+    /**
+     * Transforms coordinates into GeoJSON buffer
+     * @param int | float $latitude The latitude of the point
+     * @param int | float $longitude The longitude of the point
+     * @return string
+     *
+     */
+    public static function generateCirclePolygon(int | float $latitude, int | float $longitude, int $radiusKm): string
     {
         $coords = [];
 
