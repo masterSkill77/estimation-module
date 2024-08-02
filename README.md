@@ -17,7 +17,17 @@ Le projet ESTIMATION MODULE permettra de consommer cette API en mettant en place
 composer require koders/estimation-module
 ```
 
+## Publier le package dans Laravel
+
+```bash
+php artisan estimation-module:install
+```
+
 ## Pré-requis
 
 - php ^8.0
 - Laravel ^9.0
+
+```
+
+```
