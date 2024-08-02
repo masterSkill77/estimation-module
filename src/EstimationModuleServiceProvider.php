@@ -16,6 +16,7 @@ class EstimationModuleServiceProvider extends PackageServiceProvider
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
+                    ->askToStarRepoOnGitHub("masterSkill77/estimation-module")
                     ->copyAndRegisterServiceProviderInApp();
             });
     }
