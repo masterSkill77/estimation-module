@@ -15,7 +15,13 @@
 	"minimum-stability": "stable",
 	"require": {
 		"php": "^8.0",
-		"laravel/framework": ">=9.0",
 		"spatie/laravel-package-tools": "^1.16"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Koders\\EstimationModule\\EstimationModuleServiceProvider"
+			]
+		}
 	}
 }
