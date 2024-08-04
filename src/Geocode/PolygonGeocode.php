@@ -2,6 +2,8 @@
 
 namespace Koders\EstimationModule\Geocode;
 
+use Koders\EstimationModule\DTO\LonLatDto;
+use Koders\EstimationModule\DTO\PolygonDto;
 use stdClass;
 
 final class PolygonGeocode
@@ -14,12 +16,11 @@ final class PolygonGeocode
 
     /**
      * Transforms coordinates into GeoJSON buffer
-     * @param int | float $latitude The latitude of the point
-     * @param int | float $longitude The longitude of the point
-     * @return string
+     * @param \Koders\EstimationModule\DTO\LonLatDto $lonLatDto The coordinate of the point
+     * @return \Koders\EstimationModule\DTO\PolygonDto
      *
      */
-    public static function generateCirclePolygon(int | float $latitude, int | float $longitude, int $radiusKm): string
+    public static function generateCirclePolygon(LonLatDto $lonLatDto, int $radiusKm): PolygonDto
     {
         $coords = [];
 
@@ -30,26 +31,12 @@ final class PolygonGeocode
             $dx = $radiusDeg * cos($angle);
             $dy = $radiusDeg * sin($angle);
 
-            $pointLat = $latitude + $dy;
-            $pointLng = $longitude + $dx;
+            $pointLat = $lonLatDto->latitude + $dy;
+            $pointLng = $lonLatDto->longitude + $dx;
 
             $coords[] = [$pointLng, $pointLat];
         }
 
-        $geojson = [
-            "type" => "FeatureCollection",
-            "features" => [
-                [
-                    "type" => "Feature",
-                    "properties" => new stdClass(),
-                    "geometry" => [
-                        "type" => "Polygon",
-                        "coordinates" => [$coords]
-                    ]
-                ]
-            ]
-        ];
-
-        return json_encode($geojson, JSON_PRETTY_PRINT);
+        return new PolygonDto($coords);
     }
 }
