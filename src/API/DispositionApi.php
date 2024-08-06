@@ -2,6 +2,7 @@
 
 namespace Koders\EstimationModule\API;
 
+use Koders\EstimationModule\DTO\GeometryDto;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DispositionApi extends BaseAPI
@@ -25,5 +26,21 @@ class DispositionApi extends BaseAPI
     public static function getOne(int $disposition_id): ?array
     {
         return parent::get(BaseAPI::UNIQUE_DISPOSITION_ENDPOINT . $disposition_id, ['fields' => '_full_'], true)->json();
+    }
+
+
+    /**
+     * Get all disposition intersecting the geoJSON passed in
+     */
+
+    public static function getIntersects(GeometryDto $geometry)
+    {
+        $body = [
+            'geojson' => $geometry,
+            "limit" => 50,
+            "fields" => "_full_"
+        ];
+
+        return parent::post(BaseAPI::INTERSECTS_ENDPOINT, $body)->json();
     }
 }
