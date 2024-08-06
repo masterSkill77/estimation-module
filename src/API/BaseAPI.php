@@ -33,6 +33,12 @@ abstract class BaseAPI
      */
     const UNIQUE_DISPOSITION_ENDPOINT = '/dispositions/';
 
+
+    /**
+     * @var string
+     */
+    const INTERSECTS_ENDPOINT = '/dispositions/intersects';
+
     /**
      * For all get methods in the API Request
      */
@@ -44,6 +50,24 @@ abstract class BaseAPI
             $endpoint = BaseAPI::generateUrl($endpoint);
             try {
                 return Http::get($endpoint, $query);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode());
+            }
+        }
+        throw new Exception("The endpoint {$endpoint} is not allowed");
+    }
+
+
+    /**
+     * For all get methods in the API Request
+     */
+    public static function post(string $endpoint, array $body = [], array $query = [], ?bool $withParams = false)
+    {
+        $endpointToValidate = $withParams ? "/" . explode("/", $endpoint)[1] . "/" : $endpoint;
+        if (BaseAPI::validateRoute($endpointToValidate)) {
+            $endpoint = BaseAPI::generateUrl($endpoint);
+            try {
+                return Http::withHeaders($query)->post($endpoint, $body);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode());
             }
