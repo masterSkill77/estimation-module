@@ -13,6 +13,8 @@ class EstimationModuleServiceProvider extends PackageServiceProvider
         $package
             ->name("estimation-module")
             ->hasConfigFile()
+            ->hasMigrations(['create_estimations_result_tables'])
+            ->runsMigrations()
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
