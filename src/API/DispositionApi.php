@@ -33,11 +33,11 @@ class DispositionApi extends BaseAPI
      * Get all disposition intersecting the geoJSON passed in
      */
 
-    public static function getIntersects(GeometryDto $geometry)
+    public static function getIntersects(GeometryDto $geometry, int $limit = 50)
     {
         $body = [
             'geojson' => $geometry,
-            "limit" => 50,
+            "limit" => $limit,
             "fields" => "_full_"
         ];
 
