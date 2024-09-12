@@ -3,6 +3,7 @@
 
 namespace Koders\EstimationModule\Jobs;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,7 +13,7 @@ use Koders\EstimationModule\Services\EstimationResultService;
 
 class SaveResultJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var \Koders\EstimationModule\Services\EstimationResultService
