@@ -2,6 +2,7 @@
 
 namespace Koders\EstimationModule;
 
+use Koders\EstimationModule\Commands\PullDataCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,6 +15,9 @@ class EstimationModuleServiceProvider extends PackageServiceProvider
             ->name("estimation-module")
             ->hasConfigFile()
             ->hasMigrations(['create_estimations_result_tables'])
+            ->hasCommands([
+                PullDataCommand::class
+            ])
             ->runsMigrations()
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
