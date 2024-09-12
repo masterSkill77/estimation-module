@@ -23,5 +23,6 @@ class EstimationResult extends Model
         'sogefi_autre_parcelle_lot',
         'sogefi_multipolygone',
         'estimation_id',
+        'disposition_id'
     ];
 }
