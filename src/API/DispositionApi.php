@@ -23,9 +23,9 @@ class DispositionApi extends BaseAPI
      * @param int $disposition_id The ID of the disposition
      * @return array | null
      */
-    public static function getOne(int $disposition_id): ?array
+    public static function getOne(int $disposition_id, ?string $fields = '_full_'): ?array
     {
-        return parent::get(BaseAPI::UNIQUE_DISPOSITION_ENDPOINT . $disposition_id, ['fields' => '_full_'], true)->json();
+        return parent::get(BaseAPI::UNIQUE_DISPOSITION_ENDPOINT . $disposition_id, ['fields' => $fields], true)->json();
     }
 
 
