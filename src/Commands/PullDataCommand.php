@@ -44,23 +44,23 @@ class PullDataCommand extends Command
 
         $dispositions = [];
         $local_types = ['maison', 'appartement'];
+        $criteria = json_decode($estimation->details_bien, true);
 
         while ($results->isNotEmpty()) {
             foreach ($results as $result) {
                 $disposition = DispositionApi::getOne($result['disposition_id'], $estate);
-                $criteria = json_decode($estimation->details_bien, true);
 
                 if (in_array($estimationEstateType, $local_types)) {
 
                     $parcelles = $disposition['parcelles'];
-
 
                     $parcelleLocal = array_filter($parcelles, function ($parcelle) use ($criteria, $estimation) {
 
                         $parcelleWithLocal = (array_filter(
                             $parcelle['locaux'],
                             function ($loc) use ($criteria, $estimation) {
-                                return $loc['majic_nb_pieces_principales'] == $criteria['nb_pieces'] && $loc['majic_surface_reelle_bati'] == $criteria['surface_habitable'] && $loc["l_majic_code_type_local"] == $estimation->bien;
+                                $tenPercentSurface = 10;
+                                return $loc['majic_nb_pieces_principales'] == $criteria['nb_pieces'] && $loc['majic_surface_reelle_bati'] <= ($criteria['surface_habitable'] + $tenPercentSurface) && $loc['majic_surface_reelle_bati'] >= ($criteria['surface_habitable'] - $tenPercentSurface) && $loc["l_majic_code_type_local"] == $estimation->bien;
                             }
                         ));
 
