@@ -7,6 +7,7 @@ use Koders\EstimationModule\API\DispositionApi;
 use Koders\EstimationModule\Models\EstimationResult;
 use Illuminate\Support\Facades\Log;
 use App\Models\Estimation;
+use Koders\EstimationModule\Services\ApplyCharacteristicService;
 
 class PullDataCommand extends Command
 {
@@ -41,6 +42,7 @@ class PullDataCommand extends Command
             ->skip(($page - 1) * $perPage)
             ->take($perPage)
             ->get();
+
 
         $dispositions = [];
         $local_types = ['maison', 'appartement'];
@@ -84,7 +86,13 @@ class PullDataCommand extends Command
         }
 
         $estimationValue = count($dispositions) > 0 ? (array_reduce($dispositions, fn($carry, $item) => $carry += $item['fidji_valeur_fonciere'], 0) / count($dispositions)) : 0;
-        $estimation->estimation_value = $estimationValue;
+
+        if ($estimationValue == 0)
+            $estimation->estimation_value = $estimationValue;
+        else {
+            $estimationValue = ApplyCharacteristicService::run($estimation, $estimationValue);
+            $estimation->estimation_value = $estimationValue;
+        }
         $estimation->dispositions = ($dispositions);
         $estimation->save();
     }
