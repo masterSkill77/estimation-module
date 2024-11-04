@@ -69,8 +69,8 @@ class ApplyCharacteristicService
             ],
             'vue' => [
                 'vis_a_vis' => -8,
-                'degage' => 15,
-                'exceptionnelle' => 40
+                'degage' => 12,
+                'exceptionnelle' => 35
             ],
             'equipements' => [
                 'balcon' => 10,
