@@ -57,7 +57,7 @@ class ApplyCharacteristicService
                 'important' => -30,
                 'renovation' => -9,
                 'standard' => 0,
-                'refait' => 15
+                'refait' => 11
             ],
             'indice_dpe' => [
                 'A' => 12,
@@ -74,7 +74,7 @@ class ApplyCharacteristicService
             ],
             'equipements' => [
                 'balcon' => 10,
-                'terrasse' => 7,
+                'terrasse' => 5,
                 'jardin' => 10,
                 'parking' => 3,
                 'garage' => 6,
